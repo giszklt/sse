@@ -17,17 +17,20 @@
           <timer type="0"></timer>
         </div>
       </el-header>
-      <el-main class="sse-main_body sse-main_colorBorder"></el-main>
+      <el-main class="sse-main_body sse-main_colorBorder">
+        <userManagement></userManagement>
+      </el-main>
     </el-container>
   </div>
 </template>
 
 <script>
 import Timer from "@/components/Timer";
+import userManagement from "@/components/userManagement.vue";
 
 export default {
   name: 'HelloWorld',
-  components: {Timer},
+  components: {Timer,userManagement},
   props: {
     msg: String
   },
