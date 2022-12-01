@@ -8,24 +8,26 @@
 
 export default {
   name: 'App',
-  components: {
-
-  }
+  components: {}
 }
 </script>
 
-<style  rel="stylesheet/scss">
+<style lang="scss" rel="stylesheet/scss">
 #app {
-  width: 100%;
-  height: 100%;
   margin: 0;
   box-sizing: border-box;
   font-family: Helvetica, Arial, sans-serif;
   overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
 
-* {
-  box-sizing: border-box;
-}
+
+  * {
+    box-sizing: border-box;
+  }
 
 }
 </style>
