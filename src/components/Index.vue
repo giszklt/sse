@@ -14,8 +14,24 @@
           </el-option>
         </el-select>
         <div class="sse-main_time">
-          <timer type="0"></timer>
+          <timer :type="0"></timer>
         </div>
+        <div class="sse-main_title">
+          <div class="sse-main_titleIcon"></div>XXX系列卫星仿真评估系统</div>
+        <div class="sse-main_time">
+          <timer :type="1"></timer>
+        </div>
+        <el-select class="sse-main_select sse-main_selectBorder" v-model="selPage" filterable size="medium"
+                   @change="mainViewChange" popper-class="sse-main_selectPoper">
+          <template slot="prefix">
+            <i class="el-icon-s-tools"></i>
+          </template>
+          <el-option v-for="item in mainPages"
+                     :key="item.key"
+                     :label="item.name"
+                     :value="item.key">
+          </el-option>
+        </el-select>
       </el-header>
       <el-main class="sse-main_body sse-main_colorBorder">
         <userManagement></userManagement>
@@ -30,7 +46,7 @@ import userManagement from "@/components/userManagement.vue";
 
 export default {
   name: 'HelloWorld',
-  components: {Timer,userManagement},
+  components: {Timer, userManagement},
   props: {
     msg: String
   },
@@ -67,10 +83,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+
+@font-face {
+  font-family: 'wryh';
+  src: url("../assets/font/Technology.ttf");
+}
+
 .sse-main {
   height: 100%;
   width: 100%;
-  padding: 15px 10px 10px;
+  padding: 0 10px 10px;
   background-color: #002938;
 
   .sse-main_colorBorder {
@@ -98,8 +120,14 @@ export default {
   }
 
   .sse-main_header {
-    height: 80px !important;
-    padding: 0;
+    height: 70px !important;
+    padding: 15px 0 0;
+    background-image: url("../assets/header.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    display: flex;
+    text-align: center;
 
     .sse-main_select {
       width: 160px;
@@ -110,6 +138,7 @@ export default {
       /deep/ .el-input {
         line-height: 40px;
         font-size: 16px;
+        font-family: wryh;
 
         .el-input__prefix {
           font-size: 16px;
@@ -138,7 +167,27 @@ export default {
           line-height: 40px;
           background-color: rgba(0, 0, 0, 0);
           -webkit-text-fill-color: #6BE4F9;
+          font-family: wryh;
         }
+      }
+    }
+
+    .sse-main_time {
+      margin: 0 auto;
+    }
+
+    .sse-main_title {
+      display: inline-flex;
+      padding: 0 150px;
+      color: #FFFFFF;
+      font-size: 36px;
+      line-height: 40px;
+      text-align: center;
+      .sse-main_titleIcon{
+        height: 40px;
+        width: 40px;
+        background-color: #FFFFFF;
+        border-radius: 50% 50%;
       }
     }
   }
@@ -147,6 +196,7 @@ export default {
     width: 100%;
     background-color: #183C4C;
     padding: 2px;
+    margin-top: 10px;
   }
 }
 </style>
