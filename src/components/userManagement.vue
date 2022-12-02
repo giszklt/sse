@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="userManagementPage">
     <div class="breadcrumb-tag">
       <i class="el-icon-menu"></i>
       <span>
@@ -15,7 +15,7 @@
           type="primary"
           size="mini"
           :icon="bntProp.icon"
-          :style="{border:bntProp.border,background:bntProp.background,color:bntProp.color}"
+          :style="{border:bntProp.border,background:bntProp.background,color:bntProp.color,margin:bntProp.margin}"
           @click="operateClicked(bnti,bntProp.content)"
         >{{bntProp.content}}</el-button>
       </div>
@@ -37,17 +37,10 @@
       :header-row-style="headerRowStyle"
       :row-style="rowStyle"
       @selection-change="handleSelectionChange"
+      :height="mainTableHeight"
     >
-      <el-table-column type="selection" width="50" align="center"></el-table-column>
+      <el-table-column type="selection" width="44" align="center"></el-table-column>
       <template v-for="(col,coli) in cols">
-        <!-- <el-table-column
-        v-if="col.colprop === 'serialNumber'"
-        :prop="col.colprop"
-        :label="col.collabel < 10 ? '0'+col.collabel : col.collabel"
-        :sortable="col.sortable"
-        :width="col.width"
-        :key="coli"
-        ></el-table-column>-->
         <el-table-column
           v-if="col.colprop === 'status'"
           :prop="col.colprop"
@@ -99,54 +92,61 @@ export default {
   name: "userManagement",
   data() {
     return {
+      mainTableHeight:document.documentElement.clientHeight - 246,
       bntProps: [
         {
           content: "新增",
           border: "none",
           icon: "el-icon-plus",
           background: "#fec739",
-          color: "#ffffff"
+          color: "#ffffff",
+          margin:"0 10px 0 0"
         },
         {
           content: "编辑",
           border: "1px solid #409EFE",
           icon: "el-icon-edit",
           background: "transparent",
-          color: "#409EFE"
+          color: "#409EFE",
+          margin:"0 5px 0 0"
         },
         {
           content: "分配角色",
           border: "1px solid #409EFE",
           icon: "el-icon-user-solid",
           background: "transparent",
-          color: "#409EFE"
+          color: "#409EFE",
+          margin:"0 5px 0 0"
         },
         {
           content: "变更状态",
           border: "1px solid #409EFE",
           icon: "el-icon-news",
           background: "transparent",
-          color: "#409EFE"
+          color: "#409EFE",
+          margin:"0 5px 0 0"
         },
         {
           content: "重置密码",
           border: "1px solid #409EFE",
           icon: "el-icon-refresh",
           background: "transparent",
-          color: "#409EFE"
+          color: "#409EFE",
+          margin:"0 5px 0 0"
         },
         {
           content: "删除",
           border: "1px solid #ff0000",
           icon: "el-icon-delete",
           background: "transparent",
-          color: "#ff0000"
+          color: "#ff0000",
+          margin:"0 5px 0 0"
         }
       ],
       searchValue: "",
       data: [
         {
-          serialNumber: 1,
+          serialNumber: '01',
           account: "admin",
           name: "管理员",
           role: "系统管理员",
@@ -156,7 +156,7 @@ export default {
           createTime: "2022-09-15 09:00"
         },
         {
-          serialNumber: 2,
+          serialNumber: '02',
           account: "yianzi",
           name: "易安子",
           role: "业务管理",
@@ -166,10 +166,90 @@ export default {
           createTime: "2022-09-15 09:00"
         },
         {
-          serialNumber: 3,
+          serialNumber: '03',
           account: "zhaoyoucai",
           name: "赵有才",
           role: "业务人员",
+          status: "启用",
+          department: "卫星遥感部",
+          phoneNumber: "13500068000",
+          createTime: "2022-09-15 09:00"
+        },
+        {
+          serialNumber: '04',
+          account: "qianxiaofeng",
+          name: "钱晓峰",
+          role: "人影办",
+          status: "启用",
+          department: "卫星遥感部",
+          phoneNumber: "13500068000",
+          createTime: "2022-09-15 09:00"
+        },
+        {
+          serialNumber: '05',
+          account: "sunlixin",
+          name: "孙立新",
+          role: "指令发布员",
+          status: "启用",
+          department: "卫星遥感部",
+          phoneNumber: "13500068000",
+          createTime: "2022-09-15 09:00"
+        },
+        {
+          serialNumber: '06',
+          account: "liyunfei",
+          name: "李云飞",
+          role: "业务管理员",
+          status: "启用",
+          department: "卫星遥感部",
+          phoneNumber: "13500068000",
+          createTime: "2022-09-15 09:00"
+        },
+        {
+          serialNumber: '07',
+          account: "zhoujianguo",
+          name: "周建国",
+          role: "普通人员",
+          status: "启用",
+          department: "卫星遥感部",
+          phoneNumber: "13500068000",
+          createTime: "2022-09-15 09:00"
+        },
+        {
+          serialNumber: '08',
+          account: "wiwei",
+          name: "武伟",
+          role: "业务人员",
+          status: "启用",
+          department: "卫星遥感部",
+          phoneNumber: "13500068000",
+          createTime: "2022-09-15 09:00"
+        },
+        {
+          serialNumber: '09',
+          account: "zhengxifeng",
+          name: "郑西峰",
+          role: "业务人员",
+          status: "启用",
+          department: "卫星遥感部",
+          phoneNumber: "13500068000",
+          createTime: "2022-09-15 09:00"
+        },
+        {
+          serialNumber: '10',
+          account: "wangyuanqing",
+          name: "王元庆",
+          role: "业务人员",
+          status: "启用",
+          department: "卫星遥感部",
+          phoneNumber: "13500068000",
+          createTime: "2022-09-15 09:00"
+        },
+        {
+          serialNumber: '11',
+          account: "ouyangqing",
+          name: "欧阳青",
+          role: "业务管理员",
           status: "启用",
           department: "卫星遥感部",
           phoneNumber: "13500068000",
@@ -232,7 +312,20 @@ export default {
     };
   },
   mounted() {
-    // this.totalNumber = this.data.length;
+    let that = this;
+    window.addEventListener('resize',function(){
+      that.mainTableHeight = document.documentElement.clientHeight - 246;
+    })
+  },
+  watch:{
+    mainTableHeight(newValue){
+      this.mainTableHeight = newValue;
+    }
+  },
+  computed:{
+      // computedMainHeight(){
+      //   return window.innerHeight - 246;
+      // }
   },
   methods: {
     operateClicked(bnti, content) {
@@ -292,10 +385,13 @@ export default {
 
 <style scoped lang="scss">
 @import url("../assets/font/font.css");
+.userManagementPage{
+  margin: 0 10px;
+}
 .breadcrumb-tag {
-  padding: 10px 16px;
+  padding: 10px 10px;
   color: #fec739;
-  background-color: #002938;
+  background-color: #183C4C;
   font-family: "weiruanyahei";
   font-size: 16px;
   .leaf-tag {
@@ -303,12 +399,12 @@ export default {
   }
 }
 .operate-area {
-  background-color: #002938;
+  background-color: #183C4C;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
-  padding: 10px 0 10px 16px;
+  padding: 10px 0 10px 10px;
   .left-bnt,
   .right-search {
     min-width: 60px;
@@ -320,6 +416,8 @@ export default {
       height: 30px;
       font-size: 14px;
       font-family: "weiruanyahei";
+      padding: 7px 10px;
+      border-radius: 4px;
     }
   }
   .right-search {
@@ -373,7 +471,11 @@ export default {
   align-items: center;
   .el-button {
     margin-right: 4px;
+    padding: 5px;
   }
+}
+.el-table{
+  background-color: #0d1b24;
 }
 /* el-divider 修改高度&虚线效果 */
 // /deep/.el-divider--horizontal {
@@ -396,7 +498,7 @@ export default {
   border-bottom: 1px dashed #244b63 !important;
 }
 /deep/th.el-table__cell.is-leaf {
-  border-bottom: 1px solid #70afc6;
+  border-bottom: 1px solid #86e3f7 !important;
 }
 
 // ----行hover更改底色取消----
@@ -441,8 +543,8 @@ export default {
   font-family: "weiruanyahei";
   font-weight: 400;
   color: white;
-  padding: 6px 0;
-  background: #16323f;
+  padding: 6px;
+  background: #183C4C;
   .pagination-selected {
     color: #7acfe5;
     text-align: center;
@@ -511,11 +613,23 @@ export default {
 }
 </style>
 <style>
+.popper__arrow::after {
+  border-top-color: #5EB1C8 !important;
+  bottom: 0px !important;
+}
+.popper__arrow{
+  border-top-color: transparent !important;
+}
+
 .el-select-dropdown__list {
   background: #0c1b24;
+  padding: 0 !important;
+}
+.el-select-dropdown {
+  border: 1px solid #5EB1C8 !important;
 }
 .el-select-dropdown__item.hover,
 .el-select-dropdown__item:hover {
-  background-color: #1d323f;
+  background-color: #1d323f !important;
 }
 </style>
