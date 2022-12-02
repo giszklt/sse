@@ -34,7 +34,8 @@
         </el-select>
       </el-header>
       <el-main class="sse-main_body sse-main_colorBorder">
-        <userManagement></userManagement>
+        <userManagement v-show="selPage == 'adminManger'"></userManagement>
+        <visual-map v-show="selPage == 'visual'"></visual-map>
       </el-main>
     </el-container>
   </div>
@@ -43,10 +44,11 @@
 <script>
 import Timer from "@/components/Timer";
 import userManagement from "@/components/userManagement.vue";
+import VisualMap from "@/components/visualMap";
 
 export default {
   name: 'HelloWorld',
-  components: {Timer, userManagement},
+  components: {VisualMap, Timer, userManagement},
   props: {
     msg: String
   },
@@ -67,7 +69,7 @@ export default {
         name: "可视化交互",
         key: "visual"
       }],
-      selPage: "adminManger",
+      selPage: "visual",
     }
   },
   methods: {
@@ -180,12 +182,14 @@ export default {
       display: inline-flex;
       padding: 0 150px;
       color: #FFFFFF;
-      font-size: 36px;
+      font-size: 32px;
       line-height: 40px;
       text-align: center;
+      height: 40px;
       .sse-main_titleIcon{
         height: 40px;
         width: 40px;
+        margin-right: 10px;
         background-color: #FFFFFF;
         border-radius: 50% 50%;
       }
