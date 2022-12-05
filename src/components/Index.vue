@@ -69,7 +69,8 @@ export default {
         name: "可视化交互",
         key: "visual"
       }],
-      selPage: "visual",
+      // selPage: "visual",
+      selPage: "adminManger",
     }
   },
   methods: {
