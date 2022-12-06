@@ -606,7 +606,12 @@ export default {
 
 .el-table {
   background-color: #0d1b24;
-
+}
+/deep/.ascending {
+  border-bottom-color: #508194 !important;
+}
+/deep/.descending {
+  border-top-color: #508194 !important;
 }
 
 //去掉表格底部白线
