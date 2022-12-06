@@ -5,10 +5,10 @@
       <span>
 <!--        首页 / 系统管理 /-->
         <span class="secondStage-tag" @click="handleRouter">
-          {{secondTagLebal}}
+          {{ secondTagLebal }}
         </span>
-<!--        <span class="leaf-tag">用户管理</span>-->
-        <span class="leaf-tag">{{leafTagLebal}}</span>
+        <!--        <span class="leaf-tag">用户管理</span>-->
+        <span class="leaf-tag">{{ leafTagLebal }}</span>
       </span>
     </div>
     <div class="child-userManagement" v-show="leafTagKey === 'userManagement' && !secondTagKey">
@@ -22,7 +22,8 @@
               :icon="bntProp.icon"
               :style="{border:bntProp.border,background:bntProp.background,color:bntProp.color,margin:bntProp.margin}"
               @click="operateClicked(bnti,bntProp.content)"
-          >{{bntProp.content}}</el-button>
+          >{{ bntProp.content }}
+          </el-button>
         </div>
         <div class="right-search">
           <el-input v-model="searchValue" placeholder="搜索">
@@ -58,7 +59,7 @@
             <template slot-scope="scope">
               <div class="col-status">
                 <el-button size="mini" :type="scope.row.status === '启用'?'success' :'danger'" circle></el-button>
-                {{scope.row.status}}
+                {{ scope.row.status }}
               </div>
             </template>
           </el-table-column>
@@ -72,24 +73,35 @@
           ></el-table-column>
         </template>
       </el-table>
-      <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-sizes="[50, 100, 200, 300, 400]"
-          :page-size="pageSize"
-          layout="slot, prev, pager, next, sizes, jumper"
-          :total="totalNumber"
-      >
-      <span>
-        选中
-        <span class="pagination-selected">{{selectedNumber}}</span>，
-      </span>
+      <div class="table-pagination">
+        <el-pagination class="left-pagination" layout="slot">
         <span>
-        共计
-        <span class="pagination-selected pagination-total">{{totalNumber}}</span>
-      </span>
-      </el-pagination>
+          选中<span class="pagination-selected">{{ selectedNumber }}</span>，
+        </span>
+          <span>
+          共计<span class="pagination-selected pagination-total">{{ totalNumber }}</span>
+        </span>
+        </el-pagination>
+        <el-pagination
+            class="right-pagination"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-sizes="[50, 100, 200, 300, 400]"
+            :page-size="pageSize"
+            layout="prev, pager, next, slot, jumper"
+            :total="totalNumber"
+        >
+          <div class="customChangePageSizeUI">
+            <div class="custom-pageNumber">{{pageSize}}条/页</div>
+            <div class="pointer-pageNumber">
+              <i class="el-icon-caret-top" @click="handlepageSizeChangeUp"></i>
+              <i class="el-icon-caret-bottom" @click="handlepageSizeChangeDown"></i>
+            </div>
+          </div>
+        </el-pagination>
+      </div>
+
     </div>
     <div class="child-roleManagement" v-show="leafTagKey === 'roleManagement' && !secondTagKey">角色管理</div>
     <div class="child-menuManagement" v-show="leafTagKey === 'menuManagement' && !secondTagKey">菜单管理</div>
@@ -100,7 +112,7 @@
               v-for="(leafItem, leafi) in routerObj.secondStage"
               :key="leafi"
               @click="routerClicked(leafi)">
-          {{leafItem.lebal}}
+          {{ leafItem.lebal }}
         </span>
       </div>
     </div>
@@ -112,33 +124,32 @@ export default {
   name: "userManagement",
   data() {
     return {
-      routerObj:{
-        firstStage:{
+      routerObj: {
+        firstStage: {
           lebal: '首页 / 系统管理 / ',
           key: 'systemManagement',
         },
         // secondStage:['用户管理', '菜单管理', '角色管理'],
-        secondStage:[
-            {
-              lebal: '用户管理',
-              key: 'userManagement'
-            },
-            {
-              lebal: '菜单管理',
-              key: 'menuManagement'
-            },
-            {
-              lebal: '角色管理',
-              key: 'roleManagement'
-            }
-          ],
+        secondStage: [
+          {
+            lebal: '用户管理',
+            key: 'userManagement'
+          },
+          {
+            lebal: '菜单管理',
+            key: 'menuManagement'
+          },
+          {
+            lebal: '角色管理',
+            key: 'roleManagement'
+          }
+        ],
       },
-      leafTagLebal:'',
-      leafTagKey:'',
-      secondTagKey:'',
-      secondTagLebal:'',
-      mainTableHeight:document.documentElement.clientHeight - 246,
-      // mainTableHeight:window.innerHeight - 246,
+      leafTagLebal: '',
+      leafTagKey: '',
+      secondTagKey: '',
+      secondTagLebal: '',
+      mainTableHeight: document.documentElement.clientHeight - 246,
       bntProps: [
         {
           content: "新增",
@@ -146,7 +157,7 @@ export default {
           icon: "el-icon-my-plus",
           background: "#fec739",
           color: "#ffffff",
-          margin:"0 10px 0 0"
+          margin: "0 10px 0 0"
         },
         {
           content: "编辑",
@@ -154,7 +165,7 @@ export default {
           icon: "el-icon-my-edit",
           background: "transparent",
           color: "#409EFE",
-          margin:"0 5px 0 0"
+          margin: "0 5px 0 0"
         },
         {
           content: "分配角色",
@@ -162,7 +173,7 @@ export default {
           icon: "el-icon-my-user",
           background: "transparent",
           color: "#409EFE",
-          margin:"0 5px 0 0"
+          margin: "0 5px 0 0"
         },
         {
           content: "变更状态",
@@ -170,7 +181,7 @@ export default {
           icon: "el-icon-my-shield",
           background: "transparent",
           color: "#409EFE",
-          margin:"0 5px 0 0"
+          margin: "0 5px 0 0"
         },
         {
           content: "重置密码",
@@ -178,7 +189,7 @@ export default {
           icon: "el-icon-my-refresh",
           background: "transparent",
           color: "#409EFE",
-          margin:"0 5px 0 0"
+          margin: "0 5px 0 0"
         },
         {
           content: "删除",
@@ -186,7 +197,7 @@ export default {
           icon: "el-icon-my-delete",
           background: "transparent",
           color: "#ff0000",
-          margin:"0 5px 0 0"
+          margin: "0 5px 0 0"
         }
       ],
       searchValue: "",
@@ -355,12 +366,13 @@ export default {
       currentPage: 1,
       selectedNumber: 0,
       totalNumber: 1000,
-      pageSize:50,
+      pageSize: 50,
+      pageSizeStep:50,
     };
   },
   mounted() {
     let that = this;
-    window.addEventListener('resize',function(){
+    window.addEventListener('resize', function () {
       that.mainTableHeight = document.documentElement.clientHeight - 246;
     });
     this.leafTagLebal = this.routerObj.secondStage[0].lebal;
@@ -368,25 +380,21 @@ export default {
     this.secondTagLebal = this.routerObj.firstStage.lebal;
     this.secondTagKey = '';
   },
-  watch:{
-    mainTableHeight(newValue){
-      this.mainTableHeight = newValue;
-    }
-  },
-  computed:{
-      // computedMainHeight(){
-      //   return window.innerHeight - 246;
-      // }
+  watch: {},
+  computed: {
+    // computedMainHeight(){
+    //   return window.innerHeight - 246;
+    // }
   },
   methods: {
-    handleRouter(){
+    handleRouter() {
       const tempSecond = this.secondTagLebal;
       const tempSecondArr = tempSecond.split('/');
       this.leafTagLebal = tempSecondArr[tempSecondArr.length - 2];
       this.secondTagLebal = tempSecondArr[0] + '/';
       this.secondTagKey = this.routerObj.firstStage.key;
     },
-    routerClicked(pagei){
+    routerClicked(pagei) {
       this.leafTagLebal = this.routerObj.secondStage[pagei].lebal;
       this.leafTagKey = this.routerObj.secondStage[pagei].key;
       this.secondTagLebal = this.routerObj.firstStage.lebal;
@@ -437,15 +445,24 @@ export default {
     handleSelectionChange(selectedArray) {
       this.selectedNumber = selectedArray.length;
     },
-    ascendingOder(){
+    ascendingOder() {
       console.log('升序操作')
     },
-    handleFilter(){
+    handleFilter() {
       console.log('筛选操作')
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
       this.pageSize = val;
+    },
+    handlepageSizeChangeUp(){
+      this.pageSize += this.pageSizeStep;
+    },
+    handlepageSizeChangeDown(){
+      if (this.pageSize - this.pageSizeStep <= 0) {
+        return
+      }
+      this.pageSize -= this.pageSizeStep;
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
@@ -457,31 +474,38 @@ export default {
 <style scoped lang="scss">
 @import url("../assets/font/font.css");
 @import url("../assets/icon/myCustomIcon.css");
-.userManagementPage{
+
+.userManagementPage {
   margin: 0 10px;
-  .father-systemManagement{
+
+  .father-systemManagement {
     color: #6BE4F9;
     font-family: "weiruanyahei";
-    .secondStage-style{
+
+    .secondStage-style {
       margin-right: 10px;
       cursor: pointer;
     }
   }
 }
+
 .breadcrumb-tag {
   padding: 10px 10px;
   color: #fec739;
   background-color: #183C4C;
   font-family: "weiruanyahei";
   font-size: 16px;
-  .secondStage-tag{
+
+  .secondStage-tag {
     cursor: pointer;
   }
+
   .leaf-tag {
     font-weight: bold;
     cursor: pointer;
   }
 }
+
 .operate-area {
   background-color: #183C4C;
   display: flex;
@@ -489,10 +513,12 @@ export default {
   align-items: center;
   font-size: 14px;
   padding: 10px 0 10px 10px;
+
   .left-bnt,
   .right-search {
     min-width: 60px;
   }
+
   .left-bnt {
     .el-button--mini {
       // background: #fec739;
@@ -504,10 +530,12 @@ export default {
       border-radius: 4px;
     }
   }
+
   .right-search {
     display: flex;
     justify-content: center;
     align-items: center;
+
     /deep/ .el-button {
       background: none;
       width: 30px;
@@ -515,17 +543,20 @@ export default {
       padding: 0;
       margin: 0;
     }
+
     /deep/ .el-input-group__append {
       background-color: #408396;
       border: none;
       padding: 0;
+
       .el-icon-search {
         color: #122835;
         font-weight: bold;
         font-size: 15px;
       }
     }
-    /deep/.el-input__inner {
+
+    /deep/ .el-input__inner {
       font-size: 14px;
       font-family: "weiruanyahei";
       background-color: transparent;
@@ -535,6 +566,7 @@ export default {
       line-height: 30px;
       padding: 0 4px;
     }
+
     .search-operateIcon {
       display: flex;
       justify-content: center;
@@ -543,14 +575,16 @@ export default {
       border: 1px solid #408396;
       border-radius: 5px;
       height: 30px;
-      .vertical-line{
+
+      .vertical-line {
         width: 2px;
         height: 18px;
         border-radius: 50%;
         background-color: #408396;
         margin-right: 1px;
       }
-      .el-icon-my-filter{
+
+      .el-icon-my-filter {
         background-color: #6ECAE3;
         border-top-right-radius: 4px;
         border-bottom-right-radius: 4px;
@@ -559,100 +593,65 @@ export default {
     }
   }
 }
+
 .col-status {
   display: flex;
   align-items: center;
+
   .el-button {
     margin-right: 4px;
     padding: 5px;
   }
 }
-.el-table{
+
+.el-table {
   background-color: #0d1b24;
 
 }
-
-/deep/ .el-table__body-wrapper::-webkit-scrollbar {
-  width: 6px; /*滚动条宽度*/
-  height: 8px; /*滚动条高度*/
-}
-/deep/ .el-table__body-wrapper::-webkit-scrollbar-track {
-  //border-radius: 4px; /*滚动条的背景区域的圆角*/
-  background-color: transparent; /*滚动条的背景颜色*/
-
-}
-/deep/ .el-table__body-wrapper::-webkit-scrollbar-corner {
-  background-color: transparent;
-}
-/deep/ .el-table__body-wrapper::-webkit-scrollbar-thumb {
-  border-radius: 4px; /*滚动条的圆角*/
-  background-color: #244b63; /*滚动条的背景颜色*/
-}
-
-
-///deep/.gutter{
-.el-table colgroup col[name='gutter']{
-  width: 6px;
-}
-.el-table__body{
-  width: 100% !important;
-}
-//div /deep/ th .el-table__cell .gutter {
-//  //display: initial !important;
-//  background-color: #f1f1f1;
-//  position: absolute;
-//  height: 100%;
-//}
-/* el-divider 修改高度&虚线效果 */
-// /deep/.el-divider--horizontal {
-//   margin: 8px 0;
-//   background: 0 0;
-//   border-top: 1px dashed #f00;
-// }
-
-// /deep/.el-table__body {
-//   border-spacing: 0px 1px;
-// }
 
 //去掉表格底部白线
 .el-table::before {
   height: 0;
 }
 
-//表格中每行的下边框
-/deep/td.el-table__cell {
+//表格中每行的下边框（底边虚线和表头底边实线）
+/deep/ td.el-table__cell {
   border-bottom: 1px dashed #244b63 !important;
 }
-/deep/th.el-table__cell.is-leaf {
+
+/deep/ th.el-table__cell.is-leaf {
   border-bottom: 1px solid #86e3f7 !important;
 }
 
 // ----行hover更改底色取消----
-/deep/.el-table tbody tr:hover > td {
+/deep/ .el-table tbody tr:hover > td {
   background-color: #0d1b24 !important;
 }
+
 // ----行hover更改底色取消----
 
 // ----多选框调整----
-/deep/.el-checkbox__inner {
+/deep/ .el-checkbox__inner {
   border: 1px solid #467689;
   background-color: #234b62;
   width: 16px;
   height: 16px;
 }
-/deep/.el-checkbox__inner:hover {
+
+/deep/ .el-checkbox__inner:hover {
   border-color: #409eff;
 }
 
-/deep/.el-checkbox__input.is-checked .el-checkbox__inner,
-/deep/.el-checkbox__input.is-indeterminate .el-checkbox__inner {
+/deep/ .el-checkbox__input.is-checked .el-checkbox__inner,
+/deep/ .el-checkbox__input.is-indeterminate .el-checkbox__inner {
   border: 1px solid #467689;
   background-color: #234b62;
 }
+
 // ----多选框调整----
 
 //将表头单元格背景色透明，使回调函数的表头背景颜色可用
-/deep/th.el-table__cell {
+/deep/ th.el-table__cell {
   background-color: transparent !important;
 }
 
@@ -663,88 +662,151 @@ export default {
 }
 
 //分页格式
-.el-pagination {
+.table-pagination{
   display: flex;
   justify-content: flex-end;
-  font-family: "weiruanyahei";
-  font-weight: 400;
-  color: white;
-  padding: 6px;
-  background: #183C4C;
-  .pagination-selected {
-    color: #7acfe5;
-    text-align: center;
-    min-width: 10px;
-  }
-  .pagination-total {
-    margin-right: 10px;
-  }
-  /deep/.btn-prev,
-  /deep/.btn-next {
-    // background: transparent;
-    background: #0c1b24;
-    min-width: 28px;
-    height: 28px;
-    line-height: 28px;
-    border: 1px solid #4d7e8d;
-    border-radius: 5px;
-    .el-icon-arrow-left,
-    .el-icon-arrow-right {
+  align-items: center;
+  .el-pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-family: "weiruanyahei";
+    font-weight: 400;
+    color: white;
+    padding: 6px;
+    background: #183C4C;
+
+    .pagination-selected {
+      color: #7acfe5;
+      text-align: center;
+      min-width: 10px;
+      margin-left: 4px;
+    }
+
+    .pagination-total {
+      margin-right: 6px;
+    }
+
+    /deep/ .btn-prev,
+    /deep/ .btn-next {
+      // background: transparent;
+      background: #0c1b24;
+      min-width: 28px;
+      height: 28px;
+      line-height: 28px;
+      border: 1px solid #4d7e8d;
+      border-radius: 5px;
+
+      .el-icon-arrow-left,
+      .el-icon-arrow-right {
+        color: #4d7e8d;
+      }
+    }
+
+    /deep/ li {
+      background: #0c1b24;
+      margin: 0 4px;
+      font-size: 13px;
+      min-width: 28px;
+      height: 28px;
+      line-height: 28px;
+      border: 1px solid #4d7e8d;
+      border-radius: 5px;
+      color: #4d7e8d;
+      font-weight: bold;
+    }
+
+    /deep/ .active {
+      color: #0c1b24;
+      cursor: default;
+      background: #7acfe5 !important;
+    }
+
+    /deep/ .btn-quicknext,
+    /deep/ .btn-quickprev {
+      line-height: 28px;
       color: #4d7e8d;
     }
-  }
-  /deep/ li {
-    background: #0c1b24;
-    margin: 0 4px;
-    font-size: 13px;
-    min-width: 28px;
-    height: 28px;
-    line-height: 28px;
-    border: 1px solid #4d7e8d;
-    border-radius: 5px;
-  }
-   /deep/.active {
-     color: #0c1b24;
-     cursor: default;
-     background: #7acfe5 !important;
-   }
 
-  /deep/.btn-quicknext,
-  /deep/.btn-quickprev {
-    line-height: 28px;
-    color: #4d7e8d;
-  }
-
-  /deep/.btn-prev, /deep/.btn-next{
-    padding: 0px;
-  }
+    /deep/ .btn-prev, /deep/ .btn-next {
+      padding: 0px;
+    }
 
 
+    /deep/ .el-input__inner {
+      color: #6a747b;
+      background: #0c1b24;
+      border: 1px solid #4d7e8d;
+      border-radius: 5px;
+    }
 
-  /deep/ .el-input__inner {
-    color: #6a747b;
-    background: #0c1b24;
-    border: 1px solid #4d7e8d;
-    border-radius: 5px;
-  }
-  /deep/.el-pagination__editor.el-input {
-    width: 40px;
-  }
-  /deep/.el-pagination__jump {
-    margin-left: 0;
-    color: #ffffff;
-    .el-input__inner {
+    /deep/ .el-pagination__editor.el-input {
+      width: 40px;
+    }
+
+    /deep/ .el-pagination__jump {
+      margin-left: 0;
       color: #ffffff;
+
+      .el-input__inner {
+        color: #ffffff;
+      }
+    }
+  }
+  .left-pagination{
+    padding: 0;
+  }
+  .right-pagination{
+    .customChangePageSizeUI{
+      min-width: 80px;
+      height: 28px;
+      margin: 0 14px 0 6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: weiruanyahei;
+      font-size: 13px;
+      background-color: #0c1b24;
+      border: 1px solid #4d7e8d;
+      border-radius: 5px;
+      .custom-pageNumber{
+        color: #a0a3a5;
+        line-height: 28px;
+        padding: 0 8px 0 4px;
+      }
+      .pointer-pageNumber{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 26px;
+        border-left: 1px solid #4d7e8d;
+        .el-icon-caret-top,
+        .el-icon-caret-bottom{
+          color: #408396;
+          font-size: 12px;
+          position: relative;
+          cursor: pointer;
+        }
+        .el-icon-caret-top{
+          bottom: -3px;
+        }
+        .el-icon-caret-bottom{
+          top: -3px;
+        }
+      }
     }
   }
 }
+
 </style>
 <style>
 .popper__arrow::after {
   border-top-color: #5EB1C8 !important;
   bottom: 0px !important;
 }
-.popper__arrow{
+
+.popper__arrow {
   border-top-color: transparent !important;
 }
 
@@ -753,11 +815,32 @@ export default {
   padding: 0 !important;
   font-family: 'weiruanyahei';
 }
+
 .el-select-dropdown {
   border: 1px solid #5EB1C8 !important;
 }
+
 .el-select-dropdown__item.hover,
 .el-select-dropdown__item:hover {
   background-color: #1d323f !important;
+}
+
+::-webkit-scrollbar {
+  width: 6px; /*滚动条宽度*/
+  height: 8px; /*滚动条高度*/
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 4px; /*滚动条的背景区域的圆角*/
+  background-color: rgba(36, 75, 99, 0.6); /*滚动条的背景颜色*/
+}
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px; /*滚动条的圆角*/
+  background-color: #244b63; /*滚动条的背景颜色*/
 }
 </style>
