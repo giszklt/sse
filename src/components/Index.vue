@@ -17,7 +17,9 @@
           <timer :type="0"></timer>
         </div>
         <div class="sse-main_title">
-          <div class="sse-main_titleIcon"></div>XXX系列卫星仿真评估系统</div>
+          <div class="sse-main_titleIcon"></div>
+          XXX系列卫星仿真评估系统
+        </div>
         <div class="sse-main_time">
           <timer :type="1"></timer>
         </div>
@@ -36,6 +38,7 @@
       <el-main class="sse-main_body sse-main_colorBorder">
         <userManagement v-show="selPage == 'adminManger'"></userManagement>
         <visual-map v-show="selPage == 'visual'"></visual-map>
+        <div class="sse-main_bodyBtom"></div>
       </el-main>
     </el-container>
   </div>
@@ -176,6 +179,7 @@ export default {
 
     .sse-main_time {
       margin: 0 auto;
+      width: 250px;
     }
 
     .sse-main_title {
@@ -186,7 +190,8 @@ export default {
       line-height: 40px;
       text-align: center;
       height: 40px;
-      .sse-main_titleIcon{
+
+      .sse-main_titleIcon {
         height: 40px;
         width: 40px;
         margin-right: 10px;
@@ -201,6 +206,21 @@ export default {
     background-color: #183C4C;
     padding: 2px;
     margin-top: 10px;
+
+    .sse-main_bodyBtom {
+      background-image: url("../assets/bottomer.png");
+      background-repeat: no-repeat;
+      background-size: 40%;
+      background-position: center;
+      z-index: 9;
+      height: 13px;
+      bottom: 13px;
+      position: absolute;
+      right: 0;
+      left: 0;
+    }
+
+
   }
 }
 </style>

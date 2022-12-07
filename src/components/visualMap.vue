@@ -66,7 +66,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-
+@import "../assets/index";
 #cesiumContainer, .sse-visual_main {
   width: 100%;
   height: 100%;

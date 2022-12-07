@@ -77,15 +77,19 @@ export default {
   width: 100%;
   line-height: 26px;
   display: flex;
+  min-width: 250px;
 
   .sse-time_left {
+    width: 50%;
     font-size: 34px;
     color: #6BE4F9;
     font-family: electronicFont;
     letter-spacing: 3px;
+    min-width: 130px;
   }
 
   .sse-time_right {
+    width: 50%;
     margin-left: 10px;
     display: block;
     color: #FFFFFF;
