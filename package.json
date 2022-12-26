@@ -13,6 +13,7 @@
     "core-js": "^3.8.3",
     "element-ui": "^2.15.10",
     "node-polyfill-webpack-plugin": "^2.0.1",
+    "node-sass": "^7.0.1",
     "sass-loader": "^13.0.2",
     "vue": "^2.6.14",
     "vue-router": "^3.5.3"
@@ -21,7 +22,6 @@
     "@babel/core": "^7.12.16",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
-    "node-sass": "^7.0.1",
     "vue-template-compiler": "^2.6.14"
   },
   "eslintConfig": {
