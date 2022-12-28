@@ -4,6 +4,7 @@
     </div>
     <div class="sse-visual_title">
       <div class="sse-visual_titleicon"></div>{{wxname}}</div>
+    <div class="sse-main_info"></div>
   </div>
 </template>
 
